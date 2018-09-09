@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -13,7 +12,17 @@ import { algolia } from './lib/config';
 
 const FEATURED = ['babel-core', 'react', 'async', 'lodash', 'debug', 'qs'];
 
-const FeaturedPackage = ({ name, owner, description, keywords }) => (
+type Props = {
+  name: string,
+  owner: {
+    link: string,
+    avatar: string,
+  },
+  description: string,
+  keywords: Array<string>,
+};
+
+const FeaturedPackage = ({ name, owner, description, keywords }: Props) => (
   <div className="pkg-featured-pkg">
     <Owner {...owner} />
     <a className="ais-Hit-name" href={packageLink(name)}>
@@ -23,16 +32,6 @@ const FeaturedPackage = ({ name, owner, description, keywords }) => (
     <Keywords keywords={keywords} />
   </div>
 );
-
-FeaturedPackage.propTypes = {
-  name: PropTypes.string.isRequired,
-  owner: PropTypes.shape({
-    link: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-  }),
-  description: PropTypes.string.isRequired,
-  keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 const FilterByIds = connectRefinementList(() => null);
 
